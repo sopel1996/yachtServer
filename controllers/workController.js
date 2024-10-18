@@ -1,10 +1,9 @@
 const { Work, WorkInfo } = require("../models/models");
 const ApiError = require("../error/ApiError");
-const { Op } = require("sequelize"); // нужен для условий <>= https://sequelize.org/docs/v6/core-concepts/model-querying-basics/
+const { Op, Sequelize } = require("sequelize"); // нужен для условий <>= https://sequelize.org/docs/v6/core-concepts/model-querying-basics/
 const uuid = require("uuid");
 const path = require("path");
 const dayjs = require("dayjs");
-
 class WorkController {
   async create(req, res, next) {
     try {
@@ -89,6 +88,7 @@ class WorkController {
           offset,
         });
       }
+      
       return res.json(devices);
     } catch (e) {
       next(ApiError.badRequest(e.message));

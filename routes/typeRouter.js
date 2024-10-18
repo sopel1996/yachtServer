@@ -6,5 +6,7 @@ const checkRoleMIddleware = require('../middleware/CheckRoleMiddleware')
 // router.post('/', checkRoleMIddleware("ADMIN"), typeController.create)
 router.post('/', typeController.create)
 router.get('/', typeController.getAll)
+router.get('/getCategoryList', typeController.getCategoryList)
+
 
 module.exports = router
