@@ -17,7 +17,6 @@ class WorkController {
         nextWorkDate,
         info,
       } = req.body;
-      console.log("req", req);
       const work = await Work.create({
         name,
         category,

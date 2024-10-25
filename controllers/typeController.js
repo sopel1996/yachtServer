@@ -5,8 +5,8 @@ const sequelize = require('../db')
 class TypeController {
   async create(req, res, next) {
     try {
-      const { name } = req.body;
-      const type = await Type.create({ name });
+      const { name, parent_id } = req.body;
+      const type = await Type.create({ name, parent_id });
       return res.json(type);
     } catch (e) {
       next(ApiError.badRequest(e.message));
