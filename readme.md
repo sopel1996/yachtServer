@@ -5,7 +5,7 @@
 Web application (server) for accounting work on a yacht
 
 ## Installation
-#### NGINX Setup
+#### Postgresql Setup
 
 Install postgresql 16
 `Ubuntu(VPS)`
@@ -31,7 +31,7 @@ Upload .env
 
 Install pm2
 ```
-sudo npm install pm2 -g
+    sudo npm install pm2 -g
 ```
 
 Install npm modules

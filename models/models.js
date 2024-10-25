@@ -32,6 +32,7 @@ const Work = sequelize.define('work',{
 const Type = sequelize.define('type',{
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
+    parent_id: {type: DataTypes.INTEGER, unique: false, allowNull: true},
 
 })
 const Brand = sequelize.define('brand',{
