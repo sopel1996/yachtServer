@@ -16,6 +16,7 @@ class WorkController {
         firstWorkDate,
         nextWorkDate,
         info,
+        typeId
       } = req.body;
       const work = await Work.create({
         name,
@@ -25,6 +26,7 @@ class WorkController {
         period,
         firstWorkDate,
         nextWorkDate,
+        typeId
       });
 
       if (info) {
@@ -217,6 +219,7 @@ class WorkController {
       let {
         workName,
         category,
+        typeId,
         description,
         oneTimeJob,
         period,
@@ -236,6 +239,7 @@ class WorkController {
       work.period = period;
       work.firstWorkDate = firstWorkDate;
       work.nextWorkDate = nextWorkDate;
+      work.typeId = typeId;
       work.changed("name", true);
       work.changed("category", true);
       work.changed("description", true);
@@ -243,6 +247,7 @@ class WorkController {
       work.changed("period", true);
       work.changed("firstWorkDate", true);
       work.changed("nextWorkDate", true);
+      work.changed("typeId", true);
 
       await work.save();
 

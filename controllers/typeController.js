@@ -1,4 +1,4 @@
-const { Type } = require("../models/models");
+const { Type, Work, WorkInfo } = require("../models/models");
 const ApiError = require("../error/ApiError");
 const sequelize = require('../db')
 
@@ -16,6 +16,17 @@ class TypeController {
     try {
       const types = await Type.findAll();
       return res.json(types);
+    } catch (e) {
+      next(ApiError.badRequest(e.message));
+    }
+  }
+  async getOne(req, res, next) {
+    const { id } = req.params;
+    try {
+      const type = await Type.findOne({
+        where: {id: id}
+      });
+      return res.json(type);
     } catch (e) {
       next(ApiError.badRequest(e.message));
     }
@@ -56,7 +67,57 @@ class TypeController {
   catch (e) {
     next(ApiError.badRequest(e.message));
   }
-}
+  }
+
+  async editType(req, res, next) {
+    try {
+      let {
+        name,
+        parent_id,
+      } = req.body;
+      let { id } = req.params;
+
+      let type = await Type.findOne({
+        where: { id: id },
+      });
+
+      type.name = name;
+      type.parent_id = parent_id;
+      type.changed("name", true);
+      type.changed("parent_id", true);
+
+      await type.save();
+
+      return res.json({ status: 200, message: "edited" });
+    } catch (e) {
+      next(ApiError.badRequest(e.message));
+    }
+  }
+
+  async deleteType(req, res, next) {
+    try {
+      const { id } = req.params;
+
+      const works = await Work.findAll({
+        where: {typeId: id}
+      })
+
+      for (const work of works) {
+          await WorkInfo.destroy({
+            where: { workId: work.id },
+          });
+        await Work.destroy({
+          where: {id:  work.id}
+        })
+      }
+      await Type.destroy({
+        where: { id: id },
+      });
+      return res.json({ status: 200, message: "deleted" });
+    } catch (e) {
+      next(ApiError.badRequest(e.message));
+    }
+  }
 }
 
 module.exports = new TypeController();

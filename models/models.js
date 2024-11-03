@@ -20,6 +20,7 @@ const BasketWork = sequelize.define('basket_device',{
 
 const Work = sequelize.define('work',{
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    typeId: {type: DataTypes.INTEGER},
     name: {type: DataTypes.STRING, allowNull: false},
     category: {type: DataTypes.STRING, allowNull: false},
     description: {type: DataTypes.TEXT, allowNull: false},
